@@ -1,4 +1,4 @@
-# Проект: samoletik-shop (React SPA)
+# Проект: онлайн-магазин цифровых игр samoletik-shop (React SPA)
 
 ## 1. Формулировка задачи
 
