@@ -139,4 +139,4 @@
 
 ## 7. Ссылки
 - Шаблон технического задания: [Google Docs](https://docs.google.com/document/d/1FNWpIENVQn2a6DD9G6PJTfVgHoDDsV5AJqIwTjM_H3g/edit)  
-- Аналитика Telegram Ads: (https://smit.link/telegram-ads-price)  
+- Аналитика Telegram Ads: https://smit.link/telegram-ads-price 
