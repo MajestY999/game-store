@@ -1,0 +1,122 @@
+.game-card {
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.75),
+    rgba(10, 12, 24, 0.75)
+  );
+  border: 1px solid rgba(80, 180, 255, 0.25);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+}
+
+.game-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+  border-color: rgba(0, 212, 255, 0.4);
+}
+
+.game-card-image {
+  position: relative;
+  width: 100%;
+  padding-bottom: 150%;
+  overflow: hidden;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(0, 212, 255, 0.2),
+    transparent 60%
+  );
+  border-radius: 10px 10px 0 0;
+}
+
+.game-card-image img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  border-radius: 10px 10px 0 0;
+}
+
+.game-card:hover .game-card-image img {
+  transform: scale(1.08);
+}
+
+.discount-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: bold;
+  z-index: 2;
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 4px;
+}
+
+.game-card:hover .card-overlay {
+  opacity: 1;
+}
+
+.btn-card {
+  background: linear-gradient(135deg, #00d4ff, #0099cc);
+  color: #000;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 3px;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.btn-card:hover {
+  transform: scale(1.05);
+}
+
+.game-card-info {
+  padding: 10px 6px 12px;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.2),
+    rgba(10, 10, 20, 0.5)
+  );
+  border-top: 1px solid rgba(80, 180, 255, 0.15);
+}
+
+.game-card-info h3 {
+  margin: 0;
+  font-size: 13px;
+  color: #e8f4ff;
+  line-height: 1.3;
+  white-space: normal;
+  word-break: break-word;
+  font-weight: 600;
+}
+
+.price {
+  margin: 6px 0 0;
+  color: #6ae3ff;
+  font-weight: 700;
+  font-size: 13px;
+}
