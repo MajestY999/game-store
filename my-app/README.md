@@ -1,53 +1,67 @@
-# Getting Started with Create React App
+# Smoletik-shop - React приложение
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+👉 **[Вернитесь в главный README](../readme.md)** для полной информации о проекте.
 
-## Available Scripts
+## 🚀 Быстрый старт
 
-In the project directory, you can run:
+### 1️⃣ Установка зависимостей
 
-### `npm start`
+```bash
+npm install
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 2️⃣ Запуск dev-сервера
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+npm start
+```
 
-### `npm test`
+Откроется на [http://localhost:3000](http://localhost:3000)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 3️⃣ Сборка для продакшена
 
-### `npm run build`
+```bash
+npm run build
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 📝 Доступные команды
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+| Команда         | Описание                         |
+| --------------- | -------------------------------- |
+| `npm start`     | Запуск в режиме разработки       |
+| `npm run build` | Сборка для продакшена            |
+| `npm test`      | Запуск тестов в watch режиме     |
+| `npm run eject` | Выброс конфигурации (необратимо) |
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 📦 Технологии
 
-### `npm run eject`
+- **React** 19.2.4 - библиотека для UI
+- **React DOM** 19.2.4 - рендеринг в браузер
+- **react-scripts** 5.0.1 - конфигурация и сборка
+- **Jest** + **React Testing Library** - тестирование
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 📂 Структура папок
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+src/
+├── components/        # Переиспользуемые React компоненты
+├── pages/            # Страницы приложения
+├── Images/           # Изображения и иконки
+├── App.jsx           # Главный компонент
+├── data.js           # Статические данные товаров
+├── index.js          # Точка входа приложения
+└── *.css             # Стили
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🔗 Полезные ссылки
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- [React документация](https://reactjs.org/)
+- [Create React App документация](https://facebook.github.io/create-react-app/docs/getting-started)
+- [Главный README проекта](../readme.md)
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Создано: Vilisov Artem
 
 ### Analyzing the Bundle Size
 
