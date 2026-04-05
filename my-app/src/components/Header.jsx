@@ -14,7 +14,6 @@ export default function Header({
   const navItems = [
     { key: "home", label: "Главная" },
     { key: "catalog", label: "Каталог" },
-    { key: "subscriptions", label: "Подписки" },
     { key: "new", label: "Новинки" },
   ];
 
@@ -35,35 +34,39 @@ export default function Header({
 
   const handleCategorySelect = (item) => {
     const isAll = item.key === "all" || item.category === "Все товары";
+
     onCategoryChange && onCategoryChange(isAll ? resetFilter : item);
+    onNavigate && onNavigate("catalog");
   };
 
   const getNavActive = (item) => {
     if (item.key === "home") return activePage === "home";
+
     if (item.key === "catalog")
-      return activePage === "catalog" && activeFilters?.category === "Все товары";
-    if (item.key === "subscriptions")
-      return activePage === "catalog" && activeFilters?.category === "Подписки";
+      return (
+        activePage === "catalog" && activeFilters?.category === "Все товары"
+      );
+
     if (item.key === "new")
       return activePage === "catalog" && activeFilters?.category === "Новинки";
+
     return false;
   };
-
   const handleNavClick = (item) => {
     if (item.key === "home") {
       onNavigate && onNavigate("home");
       return;
     }
+
     if (item.key === "catalog") {
       onCategoryChange && onCategoryChange(resetFilter);
+      onNavigate && onNavigate("catalog");
       return;
     }
-    if (item.key === "subscriptions") {
-      onCategoryChange && onCategoryChange({ key: "subs", category: "Подписки" });
-      return;
-    }
+
     if (item.key === "new") {
       onCategoryChange && onCategoryChange({ key: "new", category: "Новинки" });
+      onNavigate && onNavigate("catalog");
       return;
     }
   };
@@ -71,7 +74,11 @@ export default function Header({
   return (
     <header className="header">
       <div className="header-top">
-        <div className="header-logo">
+        <div
+          className="header-logo"
+          onClick={() => onNavigate && onNavigate("home")}
+          style={{ cursor: "pointer" }}
+        >
           <img src={logo} alt="logo" className="logo-img" />
           <span className="logo-text">Samoletik-Shop</span>
         </div>
@@ -102,6 +109,7 @@ export default function Header({
             type="button"
             onClick={() => {
               if (activePage !== "catalog") {
+                onNavigate && onNavigate("catalog");
                 onCategoryChange && onCategoryChange(resetFilter);
               }
             }}
@@ -111,7 +119,14 @@ export default function Header({
         </div>
 
         <div className="header-actions">
-          <button className="btn-primary">👤 Профиль</button>
+          <button
+            className="btn-primary"
+            onClick={() => onNavigate && onNavigate("profile")}
+            type="button"
+          >
+            👤 Профиль
+          </button>
+
           <button
             className="btn-secondary"
             onClick={() => onNavigate && onNavigate("cart")}
@@ -119,7 +134,14 @@ export default function Header({
           >
             🛒 Корзина{cartItemCount ? ` (${cartItemCount})` : ""}
           </button>
-          <button className="btn-secondary">💬 Сообщения</button>
+
+          <button
+            className="btn-secondary"
+            type="button"
+            onClick={() => onNavigate && onNavigate("chat")}
+          >
+            💬 Сообщения
+          </button>
         </div>
       </div>
 
@@ -127,8 +149,7 @@ export default function Header({
         {secondaryItems.map((item) => {
           const isActive =
             (item.key === "all" && activeFilters?.category === "Все товары") ||
-            (item.category && activeFilters?.category === item.category) ||
-            (item.platform && activeFilters?.platform === item.platform);
+            (item.category && activeFilters?.category === item.category);
 
           return (
             <button

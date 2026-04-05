@@ -61,22 +61,37 @@ export default function CatalogPage({
 }) {
   const filters = ["Все товары", "По цене", "Новинки", "Популярные", "Скидки"];
   const categories = [
-    "Все товары", "Игры", "Подписки", "Новинки", "Ключи", "DLC", "Предзаказы",
+    "Все товары",
+    "Игры",
+    "Подписки",
+    "Новинки",
+    "Ключи",
+    "DLC",
+    "Предзаказы",
   ];
   const platforms = ["Все", "PlayStation", "Steam/PC", "Xbox", "Mobile", "Web"];
   const genres = [
-    "Все", "Action", "RPG", "Шутеры", "Спорт", "Хоррор",
-    "Adventure", "Сервис", "Музыка", "Подписка", "Open World",
+    "Все",
+    "Action",
+    "RPG",
+    "Шутеры",
+    "Спорт",
+    "Хоррор",
+    "Adventure",
+    "Сервис",
+    "Музыка",
+    "Подписка",
+    "Open World",
   ];
 
   const [selectedCategory, setSelectedCategory] = useState(
-    initialFilter.category ?? "Все товары"
+    initialFilter.category ?? "Все товары",
   );
   const [selectedPlatform, setSelectedPlatform] = useState(
-    initialFilter.platform ?? "Все"
+    initialFilter.platform ?? "Все",
   );
   const [selectedGenre, setSelectedGenre] = useState(
-    initialFilter.genre ?? "Все"
+    initialFilter.genre ?? "Все",
   );
   const [activeFilterChip, setActiveFilterChip] = useState("Все товары");
   const [minPrice, setMinPrice] = useState(0);
@@ -116,15 +131,20 @@ export default function CatalogPage({
     const normalizedSearch = searchTerm.trim().toLowerCase();
 
     let result = catalogGames.filter((game) => {
-      if (selectedCategory !== "Все товары" && game.category !== selectedCategory)
+      if (
+        selectedCategory !== "Все товары" &&
+        game.category !== selectedCategory
+      )
         return false;
       if (selectedPlatform !== "Все" && game.platform !== selectedPlatform)
         return false;
-      if (selectedGenre !== "Все" && game.genre !== selectedGenre)
-        return false;
+      if (selectedGenre !== "Все" && game.genre !== selectedGenre) return false;
       if (minPrice && game.price < Number(minPrice)) return false;
       if (maxPrice && game.price > Number(maxPrice)) return false;
-      if (normalizedSearch && !game.title.toLowerCase().includes(normalizedSearch))
+      if (
+        normalizedSearch &&
+        !game.title.toLowerCase().includes(normalizedSearch)
+      )
         return false;
       return true;
     });
@@ -137,16 +157,27 @@ export default function CatalogPage({
     });
 
     if (sortOption === "price-asc")
-      return [...result].sort((a, b) => (a.price || 0) - (b.price || 0));
-    if (sortOption === "price-desc")
       return [...result].sort((a, b) => (b.price || 0) - (a.price || 0));
+    if (sortOption === "price-desc")
+      return [...result].sort((a, b) => (a.price || 0) - (b.price || 0));
     if (sortOption === "discount")
       return [...result].sort((a, b) => (b.discount || 0) - (a.discount || 0));
 
     return result;
-  }, [selectedCategory, selectedPlatform, selectedGenre, minPrice, maxPrice, sortOption, searchTerm]);
+  }, [
+    selectedCategory,
+    selectedPlatform,
+    selectedGenre,
+    minPrice,
+    maxPrice,
+    sortOption,
+    searchTerm,
+  ]);
 
-  const totalPages = Math.max(1, Math.ceil(filteredGames.length / itemsPerPage));
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filteredGames.length / itemsPerPage),
+  );
 
   useEffect(() => {
     if (currentPage > totalPages) setCurrentPage(1);
@@ -154,7 +185,7 @@ export default function CatalogPage({
 
   const currentPageGames = filteredGames.slice(
     (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
+    currentPage * itemsPerPage,
   );
 
   const handleFilterChipClick = (chip) => {
@@ -168,7 +199,9 @@ export default function CatalogPage({
       setSelectedCategory("Все товары");
       setSelectedPlatform("Все");
       setSelectedGenre("Все");
-      setSortOption((prev) => prev === "price-asc" ? "price-desc" : "price-asc");
+      setSortOption((prev) =>
+        prev === "price-asc" ? "price-desc" : "price-asc",
+      );
     } else if (chip === "Новинки") {
       setSelectedCategory("Новинки");
       setSelectedPlatform("Все");
@@ -203,7 +236,9 @@ export default function CatalogPage({
     }
     if (item.category) {
       setSelectedCategory(item.category);
-      setActiveFilterChip(item.category === "Новинки" ? "Новинки" : "Все товары");
+      setActiveFilterChip(
+        item.category === "Новинки" ? "Новинки" : "Все товары",
+      );
     }
     if (item.platform) {
       setSelectedPlatform(item.platform);
@@ -335,12 +370,16 @@ export default function CatalogPage({
                 <CatalogCard
                   key={`${game.title}-${idx}`}
                   {...game}
-                  onSelect={() => onProductSelect ? onProductSelect(game) : undefined}
+                  onSelect={() =>
+                    onProductSelect ? onProductSelect(game) : undefined
+                  }
                   onAddToCart={() =>
                     onAddToCart
                       ? onAddToCart(
                           game,
-                          game.purchaseOptions?.[0]?.label || game.options?.[0] || "Стандарт"
+                          game.purchaseOptions?.[0]?.label ||
+                            game.options?.[0] ||
+                            "Стандарт",
                         )
                       : undefined
                   }
@@ -360,19 +399,23 @@ export default function CatalogPage({
               >
                 ◀
               </button>
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                <button
-                  key={page}
-                  className={`page-number ${currentPage === page ? "active" : ""}`}
-                  onClick={() => setCurrentPage(page)}
-                  type="button"
-                >
-                  {page}
-                </button>
-              ))}
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                (page) => (
+                  <button
+                    key={page}
+                    className={`page-number ${currentPage === page ? "active" : ""}`}
+                    onClick={() => setCurrentPage(page)}
+                    type="button"
+                  >
+                    {page}
+                  </button>
+                ),
+              )}
               <button
                 className="page-control"
-                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                onClick={() =>
+                  setCurrentPage((p) => Math.min(totalPages, p + 1))
+                }
                 disabled={currentPage === totalPages}
               >
                 ▶

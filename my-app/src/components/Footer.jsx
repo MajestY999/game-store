@@ -5,30 +5,35 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="footer-content">
+        <div className="footer-brand">
+          <span className="footer-logo">Smoletik-Shop</span>
+          <p>
+            Игровая платформа для покупки ключей и подписок. Быстрая доставка,
+            надежная поддержка и удобные способы оплаты.
+          </p>
+        </div>
+
         <div className="footer-section">
-          <h4>О сервисе</h4>
+          <h4>Магазин</h4>
           <ul>
             <li>
-              <a href="#">О нас</a>
+              <a href="#">Каталог</a>
             </li>
             <li>
-              <a href="#">Блог</a>
+              <a href="#">Новинки</a>
             </li>
             <li>
-              <a href="#">Карьера</a>
+              <a href="#">Скидки</a>
             </li>
             <li>
-              <a href="#">Статьи</a>
+              <a href="#">Подарочные карты</a>
             </li>
           </ul>
         </div>
 
         <div className="footer-section">
-          <h4>Помощь</h4>
+          <h4>Поддержка</h4>
           <ul>
-            <li>
-              <a href="#">Центр поддержки</a>
-            </li>
             <li>
               <a href="#">Контакты</a>
             </li>
@@ -36,31 +41,16 @@ export default function Footer() {
               <a href="#">FAQ</a>
             </li>
             <li>
-              <a href="#">Обратная связь</a>
+              <a href="#">Возврат</a>
+            </li>
+            <li>
+              <a href="#">Статус заказа</a>
             </li>
           </ul>
         </div>
 
         <div className="footer-section">
-          <h4>Правовая информация</h4>
-          <ul>
-            <li>
-              <a href="#">Соглашение</a>
-            </li>
-            <li>
-              <a href="#">Приватность</a>
-            </li>
-            <li>
-              <a href="#">Файлы cookie</a>
-            </li>
-            <li>
-              <a href="#">Условия</a>
-            </li>
-          </ul>
-        </div>
-
-        <div className="footer-section">
-          <h4>Соцсети</h4>
+          <h4>Мы в сети</h4>
           <div className="social-links">
             <a href="#" className="social-link">
               VK
@@ -79,7 +69,10 @@ export default function Footer() {
       </div>
 
       <div className="footer-bottom">
-        <p>&copy; 2024 GameStore. Все права защищены.</p>
+        <p>
+          &copy; 2026 Smoletik-Shop. Все права защищены. Политика
+          конфиденциальности.
+        </p>
       </div>
     </footer>
   );

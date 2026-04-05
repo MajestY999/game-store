@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HomePage from "./pages/HomePage";
 import CatalogPage from "./pages/CatalogPage";
 import ProductPage from "./pages/ProductPage";
 import CartPage from "./pages/CartPage";
+import ProfilePage from "./pages/ProfilePage";
+import ChatPage from "./pages/ChatPage";
 import "./App.css";
 
 function App() {
@@ -14,7 +16,58 @@ function App() {
   });
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(() => {
+    try {
+      const saved = localStorage.getItem("cartItems");
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+  const [userProfile, setUserProfile] = useState(() => {
+    try {
+      const saved = localStorage.getItem("userProfile");
+      return saved
+        ? JSON.parse(saved)
+        : {
+            name: "Алексей",
+            lastName: "Иванов",
+            email: "alex.ivanov@gmail.com",
+            phone: "+7 (999) 123-45-67",
+            telegram: "@alexivanov",
+            purchases: 47,
+            reviews: 12,
+            spent: 86800,
+            points: 0,
+            joinDate: "2026-01-15",
+            purchaseHistory: [],
+          };
+    } catch {
+      return {
+        name: "Алексей",
+        lastName: "Иванов",
+        email: "alex.ivanov@gmail.com",
+        phone: "+7 (999) 123-45-67",
+        telegram: "@alexivanov",
+        purchases: 47,
+        reviews: 12,
+        spent: 86800,
+        points: 0,
+        joinDate: "2026-01-15",
+        purchaseHistory: [],
+      };
+    }
+  });
+
+  // Сохранение корзины в localStorage при изменении
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
+
+  // Сохранение профиля в localStorage при изменении
+  useEffect(() => {
+    localStorage.setItem("userProfile", JSON.stringify(userProfile));
+  }, [userProfile]);
 
   const handleHeaderCategoryChange = (item) => {
     setSelectedProduct(null);
@@ -45,11 +98,19 @@ function App() {
         return updated;
       }
 
-      const price =
-        product.purchaseOptions?.find((p) => p.label === normalizedVariant)
-          ?.price ||
-        product.price ||
-        0;
+      // Проверяем если это кастомная сумма Steam (содержит "₽")
+      let price;
+      if (normalizedVariant.includes("₽")) {
+        // Извлекаем число из строки вида "2000 ₽"
+        const amount = parseInt(normalizedVariant.replace(/\D/g, ""));
+        price = amount || product.price || 0;
+      } else {
+        price =
+          product.purchaseOptions?.find((p) => p.label === normalizedVariant)
+            ?.price ||
+          product.price ||
+          0;
+      }
 
       return [
         ...prevCart,
@@ -87,6 +148,35 @@ function App() {
     setActivePage(page);
   };
 
+  const completeCheckout = () => {
+    if (cartItems.length === 0) return;
+
+    const totalSpent = cartItems.reduce(
+      (sum, item) => sum + item.price * item.qty,
+      0,
+    );
+
+    // Создаём новую покупку
+    const newPurchase = {
+      id: `ORD-${Date.now()}`,
+      date: new Date().toLocaleDateString("ru-RU"),
+      items: cartItems,
+      totalAmount: totalSpent,
+      status: "Завершён",
+    };
+
+    // Обновляем профиль
+    setUserProfile((prev) => ({
+      ...prev,
+      purchases: prev.purchases + 1,
+      spent: prev.spent + totalSpent,
+      purchaseHistory: [newPurchase, ...(prev.purchaseHistory || [])],
+    }));
+
+    // Очищаем корзину
+    setCartItems([]);
+  };
+
   return (
     <div className="App">
       {activePage === "product" && selectedProduct ? (
@@ -98,6 +188,15 @@ function App() {
             }
             setActivePage(page);
           }}
+          onProductSelect={(product) => {
+            setSelectedProduct(product);
+            setActivePage("product");
+          }}
+          onCategoryChange={handleHeaderCategoryChange}
+          activeFilters={filterState}
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
+          cartItemCount={cartItems.length}
           onAddToCart={(product, variant) => addToCart(product, variant, 1)}
         />
       ) : activePage === "cart" ? (
@@ -105,8 +204,14 @@ function App() {
           cartItems={cartItems}
           totalPrice={totalCartPrice}
           onNavigate={handleNavigate}
+          onCategoryChange={handleHeaderCategoryChange}
+          activeFilters={filterState}
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
           onRemoveItem={removeFromCart}
           onChangeQuantity={changeCartQuantity}
+          onAddToCart={(product, variant) => addToCart(product, variant, 1)}
+          onCompleteCheckout={completeCheckout}
         />
       ) : activePage === "catalog" ? (
         <CatalogPage
@@ -123,6 +228,29 @@ function App() {
             setActivePage("product");
           }}
           onAddToCart={(product, variant) => addToCart(product, variant, 1)}
+          cartItemCount={cartItems.length}
+        />
+      ) : activePage === "profile" ? (
+        <ProfilePage
+          onNavigate={handleNavigate}
+          onCategoryChange={handleHeaderCategoryChange}
+          activeFilters={filterState}
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
+          cartItemCount={cartItems.length}
+          userProfile={userProfile}
+          onLogout={() => {
+            setUserProfile(null);
+            setActivePage("home");
+          }}
+        />
+      ) : activePage === "chat" ? (
+        <ChatPage
+          onNavigate={handleNavigate}
+          onCategoryChange={handleHeaderCategoryChange}
+          activeFilters={filterState}
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
           cartItemCount={cartItems.length}
         />
       ) : (
