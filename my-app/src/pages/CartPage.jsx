@@ -64,7 +64,6 @@ export default function CartPage({
     if (validateCard()) {
       setIsPaid(true);
       setTimeout(() => {
-        // Вызываем функцию завершения покупки
         onCompleteCheckout && onCompleteCheckout();
 
         setShowCheckout(false);

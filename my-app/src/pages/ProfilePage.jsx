@@ -53,7 +53,6 @@ export default function ProfilePage({
     { id: "notifications", icon: "🔔", label: "Уведомления" },
   ];
 
-  // Используем purchaseHistory из профиля или fallback на статические заказы
   const orders =
     userProfile?.purchaseHistory?.length > 0
       ? userProfile.purchaseHistory.map((purchase) => ({

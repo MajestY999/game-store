@@ -100,7 +100,6 @@ export default function CatalogPage({
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
 
-  // Реагируем на внешние изменения фильтра только когда он реально изменился
   const prevFilterRef = useRef(initialFilter);
   useEffect(() => {
     const prev = prevFilterRef.current;

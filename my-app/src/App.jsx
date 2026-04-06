@@ -59,12 +59,10 @@ function App() {
     }
   });
 
-  // Сохранение корзины в localStorage при изменении
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  // Сохранение профиля в localStorage при изменении
   useEffect(() => {
     localStorage.setItem("userProfile", JSON.stringify(userProfile));
   }, [userProfile]);
@@ -98,10 +96,8 @@ function App() {
         return updated;
       }
 
-      // Проверяем если это кастомная сумма Steam (содержит "₽")
       let price;
       if (normalizedVariant.includes("₽")) {
-        // Извлекаем число из строки вида "2000 ₽"
         const amount = parseInt(normalizedVariant.replace(/\D/g, ""));
         price = amount || product.price || 0;
       } else {
@@ -156,7 +152,6 @@ function App() {
       0,
     );
 
-    // Создаём новую покупку
     const newPurchase = {
       id: `ORD-${Date.now()}`,
       date: new Date().toLocaleDateString("ru-RU"),
@@ -165,7 +160,6 @@ function App() {
       status: "Завершён",
     };
 
-    // Обновляем профиль
     setUserProfile((prev) => ({
       ...prev,
       purchases: prev.purchases + 1,
@@ -173,7 +167,6 @@ function App() {
       purchaseHistory: [newPurchase, ...(prev.purchaseHistory || [])],
     }));
 
-    // Очищаем корзину
     setCartItems([]);
   };
 

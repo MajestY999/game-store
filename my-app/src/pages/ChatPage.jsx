@@ -14,7 +14,7 @@ export default function ChatPage({
   const [chats, setChats] = useState([
     {
       id: 1,
-      name: "Подарокмика",
+      name: "Промокоды",
       avatar: "🎁",
       lastMessage: "Спасибо за помощь!",
       lastMessageTime: "12:30",

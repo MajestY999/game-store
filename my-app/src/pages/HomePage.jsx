@@ -55,7 +55,15 @@ export default function HomePage({
         }}
         onAddToCart={(product) => onAddToCart && onAddToCart(product)}
       />
-      <GameSection title="Хиты продаж" games={bestfallGames} showMore={false} />
+      <GameSection
+        title="Хиты продаж"
+        games={bestfallGames}
+        showMore={false}
+        onSelectProduct={(product) => {
+          if (onProductSelect) onProductSelect(product);
+        }}
+        onAddToCart={(product) => onAddToCart && onAddToCart(product)}
+      />
       <Footer />
     </div>
   );
